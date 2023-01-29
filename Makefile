@@ -5,7 +5,19 @@
 	.env/bin/pip install -r requirements.txt
 
 run: .env/bin/activate
-	.env/bin/python src/app.py
+	.env/bin/python -m src.app
+
+initdb: .env/bin/activate
+	.env/bin/flask --app src.app db init
+
+migratedb: .env/bin/activate
+	.env/bin/flask --app src.app db migrate
+
+upgradedb: .env/bin/activate
+	.env/bin/flask --app src.app db upgrade
+
+checkdb: .env/bin/activate
+	.env/bin/flask --app src.app db check
 
 startdb:
 	db/start_db.sh
