@@ -1,0 +1,10 @@
+{% extends 'layouts/main.html' %}
+{% block title %}Add Todo{% endblock %}
+{% block content %}
+<div class="add-todo">
+  <form method="POST" action="/todo/add">
+    <input name="todo" placeholder="todo" />
+    <button>Add</button>
+  </form>
+</div>
+{% endblock %}

@@ -25,6 +25,12 @@ startdb:
 stopdb:
 	docker stop mariadb_dev
 
+compile-styles:
+	npx postcss src/styles/**/*.scss --dir public/css --ext css --verbose
+
+watch-styles:
+	npx postcss src/styles/**/*.scss --dir public/css --ext css --watch --verbose
+
 freeze: .env/bin/pip
 	.env/bin/pip freeze > requirements.txt
 
