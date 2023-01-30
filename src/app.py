@@ -1,28 +1,36 @@
 import os
 
-from flask import redirect, render_template, request
+from flask import Response, redirect, render_template, request
 
 from config import app
-from src.model.Todo import create_todo, get_all_todos, get_todo
+from src.model.Todo import (create_todo, get_all_todos, get_todo,
+                            toggle_complete)
 
 
 @app.route("/")
-def index():
+def index() -> Response:
     todos = get_all_todos()
     return render_template("pages/home.html", todos=todos)
 
 
 @app.route("/todo/add", methods=["POST"])
-def add_todo():
+def add_todo() -> Response:
     title = request.form["todo"]
     create_todo(title)
+    redirect
     return redirect(request.referrer)
 
 
 @app.route("/todo/<int:todo_id>", methods=["GET"])
-def get_todo_by_id(todo_id):
+def get_todo_by_id(todo_id: int) -> Response:
     todo = get_todo(id=todo_id)
     return render_template("pages/todo.html", todo=todo)
+
+
+@app.route("/todo/<int:todo_id>", methods=["UPDATE"])
+def toggle_complete_by_id(todo_id: int) -> Response:
+    result = toggle_complete(todo_id)
+    return result
 
 
 if __name__ == "__main__":

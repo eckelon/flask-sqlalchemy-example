@@ -16,6 +16,9 @@ migratedb: .env/bin/activate
 upgradedb: .env/bin/activate
 	.env/bin/flask --app src.app db upgrade
 
+downgradedb: .env/bin/activate
+	.env/bin/flask --app src.app db downgrade
+
 checkdb: .env/bin/activate
 	.env/bin/flask --app src.app db check
 

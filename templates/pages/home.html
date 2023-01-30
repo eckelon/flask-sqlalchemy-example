@@ -4,9 +4,16 @@
 
 <ul class="todos">
 {% for todo in todos %}
-  <li><a href="/todo/{{todo.id}}">{{todo.title}}</a></li>
+  <li><a href="/todo/{{todo.id}}">{{todo.title}}</a> <input class="completed" id="completed-{{todo.id}}" data-urlupdate="/todo/{{todo.id}}"  type="checkbox" {{ "checked" if todo.completed }}></input> </li>
 {% endfor %}
 </ul>
+<script>
+Array.from(document.querySelectorAll('.completed')).forEach((element) => {
+  element.addEventListener('change', (evt) => {
+    fetch(element.dataset.urlupdate, { method: "UPDATE"})    
+  })  
+})
+</script>
 {% include 'pages/add-todo.html' %}
 {% endblock %}
 
