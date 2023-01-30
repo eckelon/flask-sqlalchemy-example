@@ -1,6 +1,7 @@
 import os
 
-from flask import Response, redirect, render_template, request
+from flask import redirect, render_template, request
+from werkzeug.wrappers.response import Response
 
 from config import app
 from src.model.Todo import (create_todo, get_all_todos, get_todo,
@@ -8,7 +9,7 @@ from src.model.Todo import (create_todo, get_all_todos, get_todo,
 
 
 @app.route("/")
-def index() -> Response:
+def index() -> str:
     todos = get_all_todos()
     return render_template("pages/home.html", todos=todos)
 
@@ -17,18 +18,17 @@ def index() -> Response:
 def add_todo() -> Response:
     title = request.form["todo"]
     create_todo(title)
-    redirect
     return redirect(request.referrer)
 
 
 @app.route("/todo/<int:todo_id>", methods=["GET"])
-def get_todo_by_id(todo_id: int) -> Response:
+def get_todo_by_id(todo_id: int) -> str:
     todo = get_todo(id=todo_id)
     return render_template("pages/todo.html", todo=todo)
 
 
 @app.route("/todo/<int:todo_id>", methods=["UPDATE"])
-def toggle_complete_by_id(todo_id: int) -> Response:
+def toggle_complete_by_id(todo_id: int) -> dict[str, str]:
     result = toggle_complete(todo_id)
     return result
 

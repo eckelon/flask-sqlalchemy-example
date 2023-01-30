@@ -4,6 +4,9 @@
 	python3 -m venv .env
 	.env/bin/pip install -r requirements.txt
 
+install-dev:
+	.env/bin/pip install -r dev-requirements.txt
+	
 run: .env/bin/activate
 	.env/bin/python -m src.app
 
@@ -29,10 +32,10 @@ stopdb:
 	docker stop mariadb_dev
 
 compile-styles:
-	npx postcss src/styles/**/*.scss --dir public/css --ext css --verbose
+	npx postcss src/styles/**/*.scss --dir static/css --ext css --verbose
 
 watch-styles:
-	npx postcss src/styles/**/*.scss --dir public/css --ext css --watch --verbose
+	npx postcss src/styles/**/*.scss --dir static/css --ext css --watch --verbose
 
 freeze: .env/bin/pip
 	.env/bin/pip freeze > requirements.txt

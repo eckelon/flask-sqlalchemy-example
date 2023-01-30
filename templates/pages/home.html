@@ -1,12 +1,12 @@
 {% extends 'layouts/main.html' %}
-{% block title %}Fyyur{% endblock %}
 {% block content %}
 
-<ul class="todos">
+<h1> Todo List </h1>
+<div class="todo-list">
 {% for todo in todos %}
-  <li><a href="/todo/{{todo.id}}">{{todo.title}}</a> <input class="completed" id="completed-{{todo.id}}" data-urlupdate="/todo/{{todo.id}}"  type="checkbox" {{ "checked" if todo.completed }}></input> </li>
+  <span class="todo"><a href="/todo/{{todo.id}}">{{todo.title}}</a> <input class="completed" id="completed-{{todo.id}}" data-urlupdate="/todo/{{todo.id}}"  type="checkbox" {{ "checked" if todo.completed }}></input> </span>
 {% endfor %}
-</ul>
+</div>
 <script>
 Array.from(document.querySelectorAll('.completed')).forEach((element) => {
   element.addEventListener('change', (evt) => {

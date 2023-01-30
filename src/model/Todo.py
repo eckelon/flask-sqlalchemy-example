@@ -39,10 +39,10 @@ def toggle_complete(todo_id: int) -> dict:
     todo.completed = completed
     try:
         db.session.commit()
-        return {'status': 'ok'}
+        return {"status": "ok"}
     except Exception as e:
         print(str(e))
         db.session.rollback()
-        return {'status', 'error'}
+        return {"status": "error"}
     finally:
         db.session.close()
