@@ -1,23 +1,22 @@
 import os
+
+from flask import redirect, render_template, request
+
 from config import app
-from flask import render_template, request
-from src.model.Todo import create_todo, get_todo
+from src.model.Todo import create_todo, get_all_todos, get_todo
 
 
 @app.route("/")
 def index():
-    return render_template("pages/home.html")
+    todos = get_all_todos()
+    return render_template("pages/home.html", todos=todos)
 
 
-@app.route("/todo/add", methods=["GET", "POST"])
+@app.route("/todo/add", methods=["POST"])
 def add_todo():
-    if request.method == "GET":
-        return render_template("pages/add-todo.html")
-
     title = request.form["todo"]
     create_todo(title)
-
-    return render_template("pages/add-todo.html")
+    return redirect(request.referrer)
 
 
 @app.route("/todo/<int:todo_id>", methods=["GET"])

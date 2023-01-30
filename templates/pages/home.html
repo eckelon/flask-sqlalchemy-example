@@ -1,7 +1,12 @@
 {% extends 'layouts/main.html' %}
 {% block title %}Fyyur{% endblock %}
 {% block content %}
-<div class="home">
-  <p> que pasa pues </p>
-</div>
+
+<ul class="todos">
+{% for todo in todos %}
+  <li><a href="/todo/{{todo.id}}">{{todo.title}}</a></li>
+{% endfor %}
+</ul>
+{% include 'pages/add-todo.html' %}
 {% endblock %}
+
